@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+<head>
+
+<title>Lofi Girl Radio</title><link rel="icon" href="favicon.ico" type="image/x-icon">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+<!----------> 
+
+<style>
+
+header {
+    text-align: center;
+    padding: 1em 0;
+}
+
+.logo {
+    width: 100px;
+    height: auto;
+}
+
+body {
+    background-color: #000000;
+    font-family: Arial, sans-serif;
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+body.light-mode {
+    background-color: white;
+    color: black;
+}
+
+/* -- mode -- */
+
+.mode-button {
+    padding: 12px 25px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    background: linear-gradient(45deg, #3FA34D, #1E5631, #A3D9A5);
+}
+
+.mode-button:hover {
+    transform: scale(1.1);
+    opacity: 0.9;
+}
+
+/* -- bouton -- */
+
+.duration-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.duration-button {
+    background: linear-gradient(45deg, #6A8DFF, #4C66F3, #304B99);
+}
+
+.video-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.video-button {
+    width: 100%;
+    max-width: 465px;
+    background: linear-gradient(45deg, #D56BDA, #F78F66, #FFC8A2);
+}
+
+.duration-button, .video-button {
+    padding: 12px 25px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.duration-button:hover, .video-button:hover {
+    transform: scale(1.1);
+    opacity: 0.9;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* -- video -- */
+
+.video-container {
+    position: relative;
+    width: 80%;
+    padding-bottom: 45%;
+    height: 0;
+    flex-grow: 1;
+    margin: 0 auto;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#videoFrame {
+    width: 100%;
+    height: 100%;
+    border: 3px solid white;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+.light-mode #videoFrame {
+    border-color: black; /* Bordure noire en mode clair */
+}
+
+/* -- minuteur -- */
+
+#timerDisplay {
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+ /* -- footer -- */
+
+footer {
+    background: linear-gradient(45deg, #D56BDA, #F78F66, #FFC8A2);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    bottom: -40px;
+    width: 100%;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+footer p {
+    display: block;
+    width: fit-content;
+    margin: auto;
+}
+
+footer a {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+</style>
+
+<!---->
+
+<body>
+
+<!-- affiche le logo, par défaut en mode sombre -->
+
+<header><img id="logo" src="logo-dark.png" alt="Logo" class="logo"></header>
+
+<!-- bouton pour sélectionner le mode sombre ou clair, par défaut en mode sombre -->
+
+<button id="toggleMode" class="mode-button">🌙 Mode sombre</button>
+
+<!-- bouton pour sélectionner un minuteur au choix -->
+
+<h2>Choisissez la durée du minuteur</h2>
+
+<div class="duration-buttons">
+    <button class="duration-button" onclick="setTimer(900000)">15 min</button>
+    <button class="duration-button" onclick="setTimer(1800000)">30 min</button>
+    <button class="duration-button" onclick="setTimer(3600000)">60 min</button>
+</div>
+
+<div class="duration-buttons">
+    <button class="duration-button" onclick="setTimer(5400000)">90 min</button>
+    <button class="duration-button" onclick="setTimer(7200000)">120 min</button>
+    <button class="duration-button" onclick="setTimer(9000000)">150 min</button>
+</div>
+
+<!-- bouton pour sélectionner une video au choix -->
+
+<h2>📚 For Study and Work 📚</h2>
+
+<div class="video-buttons"><button class="video-button" onclick="startVideo('jfKfPfyJRdk')">Beats to relax/study 📚 (lofi hip hop)</button></div>
+<div class="video-buttons"><button class="video-button" onclick="startVideo('Na0w3Mz46GA')">Beats to relax/study ⛩️ (asian lofi)</button></div>
+<div class="video-buttons"><button class="video-button" onclick="startVideo('TtkFsfOP9QI')">Beats to focus/study 🎹 (peaceful piano)</button></div>
+<div class="video-buttons"><button class="video-button" onclick="startVideo('HuFYqnbVbzY')">Beats to jazz chill/study 🎷 (jazz lofi)</button></div>
+<div class="video-buttons"><button class="video-button" onclick="startVideo('IxPANmjPaek')">Beats to scribe manuscripts 🏰 (medieval lofi)</button></div>
+<div class="video-buttons"><button class="video-button" onclick="startVideo('1oDrJba2PSs')">Beats to study with me 📚 Pomodoro</button></div>
+
+<h2>💤 For Relax and Sleep 💤</h2>
+
+<div class="video-buttons"><button class="video-button" onclick="startVideo('28KRPhVzCus')">Beats to sleep/chill 💤 (lofi hip hop)</button></div>
+<div class="video-buttons"><button class="video-button" onclick="startVideo('S_MOd40zlYU')">Beats to escape/dream 🌃 (dark ambient)</button></div>
+
+<h2>🌌 For Games 🌌</h2>
+
+<div class="video-buttons"><button class="video-button" onclick="startVideo('4xDzrJKXOOY')">Beats to chill/game 🌌 (synthwave)</button></div>
+
+<h2>🎧 For Meditation 🎧</h2>
+
+<div class="video-buttons"><button class="video-button" onclick="startVideo('fIpBwfFn3sg')">Ambient Music & Cat Purring 🐱 (asmr)</button></div>
+<div class="video-buttons"><button class="video-button" onclick="startVideo('-OekvEFm1lo')">Gentle rain sounds 🌧️</button></div>
+<div class="video-buttons"><button class="video-button" onclick="startVideo('P6Segk8cr-c')">Beats for rainy days ☔ (sad lofi)</button></div>
+
+<!-- affiche le temps restant du minuteur sélectionner -->
+
+<div id="timerDisplay">Minuteur : --:--<h2></h2></div>
+<h2></h2>
+
+ <!-- affiche la vidéo sélectionnée -->
+
+<div class="video-container"><iframe id="videoFrame" allowfullscreen></iframe></div>
+
+<!------------------------------------------------>
+
+<script>
+
+let countdown;
+let selectedDuration = 900000; // Valeur par défaut (15 min)
+
+function setTimer(duration) {
+    selectedDuration = duration;
+}
+
+function startVideo(videoId) {
+    var videoFrame = document.getElementById('videoFrame');
+
+    // Charger la vidéo immédiatement
+    videoFrame.src = 'https://www.youtube.com/embed/' + videoId + '?vq=hd720&enablejsapi=1&rel=0';
+
+    // Démarrer automatiquement le minuteur
+    startTimer(selectedDuration);
+}
+
+function startTimer(duration) {
+    clearInterval(countdown); // Réinitialise tout minuteur précédent
+
+    let timeRemaining = duration / 1000;
+    updateTimerDisplay(timeRemaining);
+
+    countdown = setInterval(() => {
+        timeRemaining--;
+        updateTimerDisplay(timeRemaining);
+
+        if (timeRemaining <= 0) {
+            clearInterval(countdown);
+            document.getElementById('videoFrame').src = ''; // Arrête la vidéo
+        }
+    }, 1000);
+}
+
+// Actualisation du minuteur
+
+function updateTimerDisplay(seconds) {
+    let minutes = Math.floor(seconds / 60);
+    let secondsLeft = seconds % 60;
+    document.getElementById('timerDisplay').innerText = `Minuteur : ${minutes}:${secondsLeft < 10 ? '0' : ''}${secondsLeft}`;
+}
+
+// Mode sombre et clair
+
+document.getElementById("toggleMode").addEventListener("click", function () {
+    document.body.classList.toggle("light-mode");
+
+    var logo = document.getElementById("logo");
+    var button = document.getElementById("toggleMode");
+
+    if (document.body.classList.contains("light-mode")) {
+        logo.src = "logo-light.png"; // Change le logo pour le mode clair
+        button.textContent = "🌞 Mode clair"; // Texte du bouton mode clair
+        button.style.background = "linear-gradient(45deg, #3FA34D, #1E5631, #A3D9A5)"; // Bordure noir en mode clair
+    } else {
+        logo.src = "logo-dark.png"; // Remet le logo sombre
+        button.textContent = "🌙 Mode sombre"; // Texte du bouton mode sombre
+        button.style.background = "linear-gradient(45deg, #3FA34D, #1E5631, #A3D9A5)"; // Couleur d'origine
+        videoFrame.style.borderColor = "white"; // Bordure blanche en mode sombre
+    }
+});
+
+</script>
+
+ <!---->
+
+<footer>
+    <p>Lofi Girl Radio est un site non-officiel de Lofi Girl.</p>
+    <h2></h2>
+    <p>Site web officiel <a href="https://lofigirl.com/" target="_blank">Lofi Girl</a> | <a href="https://www.youtube.com/@LofiGirl" target="_blank">Youtube</a></p>
+</footer>
+
+ <!---->
+
+</body>
+</html>
