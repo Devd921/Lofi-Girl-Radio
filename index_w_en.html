@@ -21,6 +21,21 @@ body {
     text-align: center;
 }
 
+/* -- heure et date -- */
+
+#time {
+    display: flex;
+    font-size: 2em;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    margin: 155px 0;
+}
+
+#date {
+    font-size: 0.5em;
+}
+
 /* -- bouton minuteur -- */
 
 .duration-buttons {
@@ -52,7 +67,7 @@ body {
 
 /* -- bouton -- */
 
-.duration-button, .video-button, .pomodoro-button {
+.duration-button, .video-button {
     padding: 20px 30px;
     font-weight: bold;
     font-size: 30px;
@@ -63,7 +78,7 @@ body {
     background: #232323;
 }
 
-.duration-button:hover, .video-button:hover, .pomodoro-button:hover {
+.duration-button:hover, .video-button:hover {
     transform: scale(1.1);
     opacity: 0.9;
 }
@@ -86,7 +101,8 @@ body {
 #timerdisplay {
     font-weight: bold;
     font-size: 35px;
-    margin-top: 20px;
+    margin: auto;
+    margin-bottom: 15px;
 }
 
 /* -- vidéo -- */
@@ -97,6 +113,7 @@ body {
     flex-grow: 1;
     margin: 0 auto;
     padding-bottom: 200px;
+    margin-top: 25px;
 }
 
 .video-container iframe {
@@ -104,7 +121,7 @@ body {
     height: 225px;
 }
 
-#videoFrame {
+#videoframe {
     width: 400px;
     height: 225px;
     border: 6px solid #232323;
@@ -141,6 +158,8 @@ footer a:hover {
 </style>
 
 <body>
+
+<div id="time"></div>
 
 <h2>TIMERS</h2>
 
@@ -204,12 +223,37 @@ footer a:hover {
     <button class="video-button" onclick="startVideo('P6Segk8cr-c')">Rainy days ☔</button>
 </div>
 
-<div id="timerdisplay">Timer : --:--<h2></h2></div>
-<h2></h2>
+<div id="timerdisplay">Timer : --:--</div>
+
+<button class="video-button" onclick="stopAll()">Stop</button>
 
 <div class="video-container"><iframe id="videoframe" allowfullscreen></iframe></div>
 
 <script>
+
+// Heure et date
+
+afficherDateEtTime(); // Exécuter la fonction immédiatement au chargement de la page
+setInterval(afficherDateEtTime, 1000);
+
+function afficherDateEtTime() {
+    const maintenant = new Date();
+
+    // Heure formatée
+    const heures = maintenant.getHours().toString().padStart(2, '0');
+    const minutes = maintenant.getMinutes().toString().padStart(2, '0');
+    const secondes = maintenant.getSeconds().toString().padStart(2, '0');
+
+    // Format de la date : "sam. 31 mai"
+    const optionsDate = { weekday: 'short', day: 'numeric', month: 'long' };
+    const dateLocale = maintenant.toLocaleDateString('en-EN', optionsDate).toLowerCase();
+
+    document.getElementById("time").innerHTML = `
+        <span id="horloge">${heures}:${minutes}:${secondes}</span>
+        <span id="date">${dateLocale}</span>`;
+}
+
+setInterval(afficherDateEtTime, 1000);
 
 // Minuteur et vidéo
 
@@ -224,7 +268,7 @@ function startVideo(videoId) {
     var videoFrame = document.getElementById('videoframe');
 
     // Charger la vidéo immédiatement
-    videoFrame.src = 'https://www.youtube.com/embed/' + videoId + '?vq=hd720&enablejsapi=1&rel=0&autoplay=1';
+    videoFrame.src = 'https://www.youtube.com/embed/' + videoId + '?vq=medium&enablejsapi=1&rel=0&autoplay=1';
 
     // Démarrer automatiquement le minuteur
     startTimer(selectedDuration);
@@ -251,6 +295,12 @@ function updateTimerDisplay(seconds) {
     let minutes = Math.floor(seconds / 60);
     let secondsLeft = seconds % 60;
     document.getElementById('timerdisplay').innerText = `Timer : ${minutes}:${secondsLeft < 10 ? '0' : ''}${secondsLeft}`;
+}
+
+function stopAll() {
+    clearInterval(countdown); // Arrêter le minuteur
+    document.getElementById('videoframe').src = ''; // Arrêter la vidéo
+    document.getElementById('timerdisplay').innerText = "Timer : --:--"; // Réinitialiser le minuteur
 }
 
 </script>
