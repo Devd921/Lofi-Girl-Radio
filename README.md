@@ -1,6 +1,18 @@
 [en] Lofi Girl Radio lets you listen to the various Lofi Girl live broadcasts without going through YouTube, removing any distractions.
 
+(site) https://devd921.github.io/Lofi-Girl-Radio/index_en.html
+
+(site for watch) https://devd921.github.io/Lofi-Girl-Radio/index_w_en.html
+
+...
+
 [fr] Lofi Girl Radio permet d'écouter les différents directs de Lofi Girl sans passer par YouTube, enlevant ainsi toute distraction.
+
+(site) https://devd921.github.io/Lofi-Girl-Radio/index_fr.html
+
+(site pour montre) https://devd921.github.io/Lofi-Girl-Radio/index_w_fr.html
+
+...
 
 [en] site features:
 
