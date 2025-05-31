@@ -22,6 +22,8 @@
 - A timer that selects the duration and cuts the selected video.
 - Can be used with the screen off or in the background.
 
+Adds time and date as a “watch face” for the watch version.
+
 [fr] fonctionnalités du site :
 
 - Un mode sombre ou clair.
@@ -30,13 +32,15 @@
 - Un minuteur avec choix de durée et qui coupe la vidéo sélectionnée.
 - Possibilité d'utiliser avec l'écran éteint ou en arrière-plan.
 
+Ajoute l'heure et la date comme "cadran de montre" pour la version montre.
+
 ![preview](https://github.com/user-attachments/assets/e9b7bde8-7da9-404a-992b-4fe1877475e4)
 
 [en] Version of the site to be more accessible on a watch.
 
 [fr] Version du site pour être plus accessible sur une montre.
 
-![preview_watch](https://github.com/user-attachments/assets/2df2c054-6f3d-461c-b765-7e1ae30c07a3)
+![preview_watch](https://github.com/user-attachments/assets/d4228558-fba3-4410-bbb1-ac53e482b901)
 
 [en] I am in no way associated with Lofi Girl.
 
