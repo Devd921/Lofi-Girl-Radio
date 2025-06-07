@@ -34,13 +34,13 @@ Adds time and date as a “watch face” for the watch version.
 
 Ajoute l'heure et la date comme "cadran de montre" pour la version montre.
 
-![preview](https://github.com/user-attachments/assets/e9b7bde8-7da9-404a-992b-4fe1877475e4)
+![preview](https://github.com/user-attachments/assets/63c2cda0-ca1d-4cca-9b41-60fc99b8ac61)
 
 [en] Version of the site to be more accessible on a watch.
 
 [fr] Version du site pour être plus accessible sur une montre.
 
-![preview_watch](https://github.com/user-attachments/assets/d4228558-fba3-4410-bbb1-ac53e482b901)
+![preview_watch](https://github.com/user-attachments/assets/379c3dc1-0818-4dce-88eb-8a600cb57768)
 
 [en] I am in no way associated with Lofi Girl.
 
