@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en-EN">
+<head>
+
+<title>Lofi Girl Radio</title><link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+
+<meta name="author" content="Devd921">
+<meta name="description" content="Lofi Girl Radio lets you listen to the various Lofi Girl live broadcasts without going through YouTube, removing any distractions.">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+<style>
+
+body {
+    background-color: #141321;
+    font-family: Arial, sans-serif;
+    color: white;
+    font-size: 15px;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+body.light-mode {
+    background-color: #eeefdf;
+    color: black;
+}
+
+/* -- header -- */
+
+header {
+    text-align: center;
+    padding: 1em 0;
+}
+
+.logo {
+    width: 100px;
+    height: auto;
+}
+
+/* -- bouton confort visuel -- */
+
+.mode-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.mode-button {
+    background: linear-gradient(45deg, #3FA34D, #1E5631, #A3D9A5);
+}
+
+/* -- curseur des cycles -- */
+
+.label-container {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#cycleslider {
+    -webkit-appearance: none;
+    width: 350px;
+    height: 6px;
+    background: #666;
+    border-radius: 3px;
+    outline: none;
+    opacity: 0.9;
+    transition: opacity 0.2s;
+    margin-bottom: 25px;
+}
+
+#cycleslider:hover {
+    opacity: 1;
+}
+
+#cycleslider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #007BFF;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#cycleslider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+/* -- bouton pomodoro -- */
+
+.pomodoro-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.pomodoro-button {
+    background: linear-gradient(45deg, #6A8DFF, #4C66F3, #304B99);
+}
+
+/* -- bouton minuteur -- */
+
+.duration-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.duration-button {
+/* width: 20%; */
+    background: linear-gradient(45deg, #6A8DFF, #4C66F3, #304B99);
+}
+
+/* -- bouton vidéo -- */
+
+.video-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.video-button {
+    width: 100%;
+    max-width: 450px;
+    background: linear-gradient(45deg, #D56BDA, #F78F66, #FFC8A2);
+}
+
+/* -- bouton -- */
+
+.duration-button, .video-button , .mode-button, .pomodoro-button {
+    padding: 12px 18px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.duration-button:hover, .video-button:hover, .mode-button:hover, .pomodoro-button:hover {
+    transform: scale(1.1);
+    opacity: 0.9;
+}
+
+/* -- vidéo -- */
+
+.video-container {
+    position: relative;
+    width: 80%;
+    padding-bottom: 45%;
+    height: 0;
+    margin: 0 auto;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#videoframe {
+    width: 100%;
+    height: 100%;
+    border: 4px solid #F78F66;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+/* -- séparation -- */
+
+.center-separator {
+    background: linear-gradient(45deg, #D56BDA, #F78F66, #FFC8A2);
+    width: 100%;
+    max-width: 450px;
+    height: 4px;
+    border-radius: 10px;
+    margin: auto;
+}
+
+/* -- minuteur -- */
+
+#timerdisplay, #pomodorodisplay {
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+ /* -- footer -- */
+
+footer {
+    background: linear-gradient(45deg, #D56BDA, #F78F66, #FFC8A2);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    bottom: -40px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+footer p {
+    display: block;
+    width: fit-content;
+    margin: auto;
+}
+
+footer a {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+</style>
+
+<body>
+
+<!-- logo, par défaut en mode sombre -->
+<header><img id="logo" src="assets/images/logo-dark.png" alt="Logo" class="logo"></header>
+
+<div class="center-separator"></div>
+
+<!-- mode sombre ou clair, par défaut en mode sombre -->
+<h2>Select color mode</h2>
+
+<div class="mode-buttons">
+    <button id="togglemode" class="mode-button">🌙 Dark mode</button>
+</div>
+
+<div class="center-separator"></div>
+
+<!-- curseur du nombre de cycles à choisir -->
+<h2>Choose the Pomodoro cycles</h2>
+
+<p>A single sound is played when there is a cycle, break and end.</p>
+<p>25 min cycle with a 5 min break.</p>
+
+<div class="label-container">
+    <label id="cyclelabel" for="cycleslider">Select number of cycles : 5</label>
+</div>
+<input type="range" id="cycleslider" min="3" max="6" value="5" oninput="updateSliderValue(this.value)">
+
+<!-- bouton du Pomodoro -->
+<div class="pomodoro-buttons">
+    <button class="pomodoro-button" onclick="startPomodoro()">Start Pomodoro</button>
+    <button class="pomodoro-button" onclick="stopPomodoro()">Stop Pomodoro</button>
+</div>
+
+<!-- affiche le temps passé en Pomodoro -->
+<div id="pomodorodisplay">Cycle : -- | Remaining time : --:--<h2></h2></div>
+<h2></h2>
+
+<div class="center-separator"></div>
+
+<!-- bouton pour sélectionner un minuteur au choix -->
+<h2>Choose the timer duration</h2>
+
+<p>By default, the timer is set to 180 min when a video is played.</p>
+<p>The video is automatically cut, not the pomodoro.</p>
+
+<div class="duration-buttons">
+    <button class="duration-button" onclick="setTimer(1800000)">30 min</button>
+    <button class="duration-button" onclick="setTimer(3600000)">60 min</button>
+    <button class="duration-button" onclick="setTimer(5400000)">90 min</button>
+</div>
+
+<div class="duration-buttons">
+    <button class="duration-button" onclick="setTimer(7200000)">120 min</button>
+    <button class="duration-button" onclick="setTimer(9000000)">150 min</button>
+    <button class="duration-button" onclick="setTimer(10800000)">180 min</button>
+</div>
+
+<div class="center-separator"></div>
+
+<!-- bouton pour sélectionner une video au choix -->
+<h2>📚 For Study and Work 📚</h2>
+
+<div class="video-buttons">
+    <button class="video-button" onclick="startVideo('jfKfPfyJRdk')">Beats to relax / study 📚 (lofi hip hop)</button>
+    <button class="video-button" onclick="startVideo('Na0w3Mz46GA')">Beats to relax / study ⛩️ (asian lofi)</button>
+    <button class="video-button" onclick="startVideo('TtkFsfOP9QI')">Beats to focus / study 🎹 (peaceful piano)</button>
+    <button class="video-button" onclick="startVideo('HuFYqnbVbzY')">Beats to jazz chill / study 🎷 (jazz lofi)</button>
+    <button class="video-button" onclick="startVideo('IxPANmjPaek')">Beats to scribe manuscripts 🏰 (medieval lofi)</button>
+    <button class="video-button" onclick="startVideo('1oDrJba2PSs')">Beats to study with me 📚 Pomodoro</button>
+</div>
+
+<h2>💤 For Relax and Sleep 💤</h2>
+
+<div class="video-buttons">
+    <button class="video-button" onclick="startVideo('28KRPhVzCus')">Beats to sleep / chill 💤 (lofi hip hop)</button>
+    <button class="video-button" onclick="startVideo('S_MOd40zlYU')">Beats to escape / dream 🌃 (dark ambient)</button>
+</div>
+
+<h2>🌌 For Games 🌌</h2>
+
+<div class="video-buttons">
+    <button class="video-button" onclick="startVideo('4xDzrJKXOOY')">Beats to chill / game 🌌 (synthwave)</button>
+</div>
+
+<h2>🎧 For Meditation 🎧</h2>
+
+<div class="video-buttons">
+    <button class="video-button" onclick="startVideo('xORCbIptqcc')">Music to fall asleep 💤 (sleep ambient)</button>
+    <button class="video-button" onclick="startVideo('-OekvEFm1lo')">Gentle rain sounds 🌧️</button>
+    <button class="video-button" onclick="startVideo('P6Segk8cr-c')">Beats for rainy days ☔ (sad lofi)</button>
+</div>
+
+<div class="center-separator"></div>
+
+<!-- affiche le minuteur sélectionnée -->
+<div id="timerdisplay">Timer : --:--<h2></h2></div>
+<h2></h2>
+
+<!-- affiche la vidéo sélectionnée -->
+<div class="video-container"><iframe id="videoframe" allowfullscreen></iframe></div>
+
+<script>
+
+// Les sessions Pomodoro
+
+let pomoCountdown;
+let pomoTimeRemaining;
+let pomoCycle = 5; // Nombre de cycles par défaut
+const workDuration = 25 * 60; // Durée d'une session de travail en secondes (25 minutes)
+const breakDuration = 5 * 60; // Durée d'une pause en secondes (5 minutes)
+
+// Met à jour l'affichage du nombre de cycles du Pomodoro
+function updateSliderValue(value) {
+    document.getElementById("cyclelabel").innerText = "Select number of cycles : " + value;
+}
+
+// Démarre une session Pomodoro complète
+
+function startPomodoro() {
+    clearInterval(pomoCountdown); // Arrête une session en cours, s'il y en a
+    pomoCycle = 1; // Reset du cycle actuel
+    
+    let selectedCycles = parseInt(document.getElementById("cycleslider").value); // Récupère le choix de l'utilisateur
+    maxCycles = selectedCycles; // Définit le nombre max de cycles
+    
+    startWorkSession(); // Démarre la première session de travail
+}
+
+// Démarre une session de travail
+
+function startWorkSession() {
+    pomoTimeRemaining = workDuration; // Initialisation du temps restant
+    updatePomodoroDisplay("Work", pomoTimeRemaining); // Mise à jour de l'affichage
+    playSound("start"); // Joue un son au début du travail
+
+    // Décompte du temps pour le travail
+    pomoCountdown = setInterval(() => {
+        pomoTimeRemaining--;
+        updatePomodoroDisplay("Work", pomoTimeRemaining);
+
+        if (pomoTimeRemaining <= 0) {
+            clearInterval(pomoCountdown); // Arrête le décompte
+            startBreakSession(); // Démarre la pause
+        }
+    }, 1000);
+}
+
+// Démarre une pause après une session de travail
+
+function startBreakSession() {
+    pomoTimeRemaining = breakDuration; // Initialisation du temps de pause
+    updatePomodoroDisplay("Break", pomoTimeRemaining); // Mise à jour de l'affichage
+    playSound("break"); // Joue un son pour signaler le début de la pause
+
+    // Décompte du temps pour la pause
+    pomoCountdown = setInterval(() => {
+        pomoTimeRemaining--;
+        updatePomodoroDisplay("Break", pomoTimeRemaining);
+
+        if (pomoTimeRemaining <= 0) {
+            clearInterval(pomoCountdown);
+
+            if (pomoCycle < maxCycles) { // Vérifie si d'autres cycles doivent être exécutés
+                pomoCycle++;
+                startWorkSession(); // Recommence une session de travail
+            } else {
+                playSound("end"); // Joue un son indiquant la fin du Pomodoro
+                afficherResultatFinal(); // Affiche le résultat final
+            }
+        }
+    }, 1000);
+}
+
+// Actualisation du Pomodoro
+
+function updatePomodoroDisplay(status, seconds) {
+    let minutes = Math.floor(seconds / 60);
+    let secondsLeft = seconds % 60;
+    document.getElementById('pomodorodisplay').innerText = `Cycle ${pomoCycle} | ${status} : ${minutes}:${secondsLeft < 10 ? '0' : ''}${secondsLeft}`;
+}
+
+// Affiche le récapitulatif une fois le Pomodoro terminé
+
+function afficherResultatFinal() {
+    let cyclesCompletes = maxCycles; // Affiche le nombre exact de cycles complétés
+
+    let tempsTravail = cyclesCompletes * workDuration;
+    let tempsPause = cyclesCompletes * breakDuration;
+    let tempsTotal = tempsTravail + tempsPause;
+
+    let minutesTravail = Math.floor(tempsTravail / 60);
+    let minutesPause = Math.floor(tempsPause / 60);
+    let minutesTotal = Math.floor(tempsTotal / 60);
+
+    document.getElementById('pomodorodisplay').innerText = 
+        `Pomodoro finished | Cycles completed : ${cyclesCompletes}
+
+        Work : ${minutesTravail} min | Break : ${minutesPause} min | Total : ${minutesTotal} min`;
+
+    console.log(`Pomodoro finished after ${cyclesCompletes} cycles | Work : ${minutesTravail} min | Break : ${minutesPause} min | Total : ${minutesTotal} min`);
+}
+
+// Arrête une session Pomodoro en cours
+
+function stopPomodoro() {
+    clearInterval(pomoCountdown); // Stoppe le décompte en cours
+    
+    let cyclesCompletes = (pomoCycle > maxCycles) ? maxCycles : pomoCycle - 1;
+
+    let tempsTravail = cyclesCompletes * workDuration;
+    let tempsPause = cyclesCompletes * breakDuration;
+    let tempsTotal = tempsTravail + tempsPause;
+
+    let minutesTravail = Math.floor(tempsTravail / 60);
+    let minutesPause = Math.floor(tempsPause / 60);
+    let minutesTotal = Math.floor(tempsTotal / 60);
+
+    updatePomodoroDisplay("Arrêté", 0); // Met à jour l'affichage
+    document.getElementById('pomodorodisplay').innerText = 
+        `Pomodoro stopped | Cycles completed : ${cyclesCompletes}
+
+        Work : ${minutesTravail} min | Break : ${minutesPause} min | Total : ${minutesTotal} min`;
+
+    console.log(`Pomodoro stopped after ${cyclesCompletes} cycles | Work : ${minutesTravail} min | Break : ${minutesPause} min | Total : ${minutesTotal} min`);
+}
+
+// Joue un son à chaque étape du Pomodoro
+
+function playSound(type) {
+    let audio = new Audio();
+    if (type === "start") {
+        audio.src = "assets/sounds/start.mp3"; // Son au début d'une session de travail
+    } else if (type === "break") {
+        audio.src = "assets/sounds/break.mp3"; // Son au début de la pause
+    } else if (type === "end") {
+        audio.src = "assets/sounds/end.mp3"; // Son à la fin du Pomodoro
+    }
+    audio.play();
+}
+
+// Fonction permettant de basculer entre mode clair et mode sombre
+
+document.getElementById("togglemode").addEventListener("click", function () {
+    document.body.classList.toggle("light-mode");
+
+    var logo = document.getElementById("logo");
+    var button = document.getElementById("togglemode");
+
+    if (document.body.classList.contains("light-mode")) {
+        logo.src = "assets/images/logo-light.png"; // Change le logo pour le mode clair
+        button.textContent = "🌞 Light Mode"; // Texte du bouton mode clair
+    } else {
+        logo.src = "assets/images/logo-dark.png"; // Remet le logo sombre
+        button.textContent = "🌙 Dark Mode"; // Texte du bouton mode sombre
+    }
+});
+
+// Minuteur et gestion des vidéos
+    
+let countdown;
+let selectedDuration = 10800000; // Valeur par défaut ("180" min)
+
+function setTimer(duration) {
+    selectedDuration = duration;
+}
+
+function startVideo(videoId) {
+    var videoFrame = document.getElementById('videoframe');
+
+    // Charger la vidéo immédiatement
+    videoFrame.src = 'https://www.youtube.com/embed/' + videoId + '?vq=hd720&enablejsapi=1&rel=0&autoplay=1';
+
+    // Démarrer automatiquement le minuteur
+    startTimer(selectedDuration);
+}
+
+// Démarre le minuteur et arrête la vidéo une fois terminé
+
+function startTimer(duration) {
+    clearInterval(countdown); // Réinitialise tout minuteur précédent
+
+    let timeRemaining = duration / 1000;
+    updateTimerDisplay(timeRemaining);
+
+    countdown = setInterval(() => {
+        timeRemaining--;
+        updateTimerDisplay(timeRemaining);
+
+        if (timeRemaining <= 0) {
+            clearInterval(countdown);
+            document.getElementById('videoframe').src = ''; // Arrête la vidéo
+        }
+    }, 1000);
+}
+
+// Met à jour l'affichage du minuteur
+
+function updateTimerDisplay(seconds) {
+    let minutes = Math.floor(seconds / 60);
+    let secondsLeft = seconds % 60;
+    document.getElementById('timerdisplay').innerText = `Timer : ${minutes}:${secondsLeft < 10 ? '0' : ''}${secondsLeft}`;
+}
+
+</script>
+
+<footer>
+
+<p>Lofi Girl Radio is an unofficial Lofi Girl website.</p>
+<p>Source of the github project <a href="https://github.com/Devd921/Lofi-Girl-Radio" target="_blank">here</a></p>
+<h2></h2>
+<p>Official website of <a href="https://lofigirl.com/" target="_blank">Lofi Girl</a> | <a href="https://www.youtube.com/@LofiGirl" target="_blank">Youtube</a></p>
+
+</footer>
+
+</body>
+</html>

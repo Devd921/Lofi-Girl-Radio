@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+<head>
+
+<title>Lofi Girl Radio</title><link rel="icon" href="assets/img/favicon.ico" type="image/x-icon">
+
+<meta name="author" content="Devd921">
+<meta name="description" content="Lofi Girl Radio permet d'écouter les différents directs de Lofi Girl sans passer par YouTube, enlevant ainsi toute distraction.">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+<style>
+
+body {
+	background-color: black;
+	font-family: Arial, sans-serif;
+	color: white;
+    font-size: 30px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* -- heure et date -- */
+
+#time {
+    display: flex;
+    font-size: 2em;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    margin: 180px 0;
+    opacity: 0.3;
+}
+
+#date {
+    font-size: 0.5em;
+}
+    
+/* -- bouton minuteur -- */
+
+.duration-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.duration-button {
+    width: 100%;
+    max-width: 192px;
+}
+
+/* -- bouton vidéo -- */
+
+.video-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.video-button {
+    width: 100%;
+    max-width: 400px;
+}
+
+/* -- bouton -- */
+
+.duration-button, .video-button {
+    padding: 20px 30px;
+    font-weight: bold;
+    font-size: 30px;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    transition: 0.3s;
+    background: #232323;
+}
+
+.duration-button:hover, .video-button:hover {
+    transform: scale(1.1);
+    opacity: 0.9;
+}
+
+/* -- séparation -- */
+
+.center-separator {
+    background: #232323;
+    width: 100%;
+    max-width: 400px;
+    height: 4px;
+    border-radius: 10px;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+/* -- minuteur -- */
+
+#timerdisplay {
+    font-weight: bold;
+    font-size: 35px;
+    margin: auto;
+    margin-bottom: 15px;
+}
+
+/* -- vidéo -- */
+
+.video-container {
+    position: relative;
+    height: 0;
+    margin: 0 auto;
+    padding-bottom: 200px;
+    margin-top: 25px;
+}
+
+.video-container iframe {
+    width: 400px;
+    height: 225px;
+}
+
+#videoframe {
+    width: 400px;
+    height: 225px;
+    border: 6px solid #232323;
+    border-radius: 15px;
+}
+
+/* -- footer -- */
+
+footer {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    padding: 30px;
+    bottom: -40px;
+    box-sizing: border-box;
+}
+
+footer p {
+    display: block;
+    width: fit-content;
+    margin: auto;
+}
+
+footer a {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+</style>
+
+<body>
+
+<!-- affiche l'heure et la date -->
+<div id="time"></div>
+
+<!-- bouton pour sélectionner un minuteur au choix -->
+<h2>MINUTEURS</h2>
+
+<div class="duration-buttons">
+    <button class="duration-button" onclick="setTimer(1800000)">30 min</button>
+    <button class="duration-button" onclick="setTimer(3600000)">60 min</button>
+</div>
+
+<div class="duration-buttons">
+    <button class="duration-button" onclick="setTimer(5400000)">90 min</button>
+    <button class="duration-button" onclick="setTimer(7200000)">120 min</button>
+</div>
+
+<div class="duration-buttons">
+    <button class="duration-button" onclick="setTimer(9000000)">150 min</button>
+    <button class="duration-button" onclick="setTimer(10800000)">180 min</button>
+</div>
+
+<!-- bouton pour sélectionner une video au choix -->
+<h2>VIDÉOS</h2>
+
+<p>Pour étudier et travailler</p>
+
+<div class="video-buttons">
+    <button class="video-button" onclick="startVideo('jfKfPfyJRdk')">Relax / Study 📚</button>
+    <button class="video-button" onclick="startVideo('Na0w3Mz46GA')">Relax / Study ⛩️</button>
+    <button class="video-button" onclick="startVideo('TtkFsfOP9QI')">Focus / Study 🎹</button>
+    <button class="video-button" onclick="startVideo('HuFYqnbVbzY')">Chill / Study 🎷</button>
+    <button class="video-button" onclick="startVideo('IxPANmjPaek')">Scribe Manuscripts 🏰</button>
+</div>
+
+<div class="center-separator"></div>
+
+<div class="video-buttons">
+<button class="video-button" onclick="startVideo('1oDrJba2PSs')">Study with me 📚
+</div>
+
+<div class="center-separator"></div>
+
+<p>Pour la détente et le sommeil</p>
+
+<div class="video-buttons">
+    <button class="video-button" onclick="startVideo('28KRPhVzCus')">Sleep / Chill 💤</button>
+    <button class="video-button" onclick="startVideo('S_MOd40zlYU')">Escape / Dream 🌃</button>
+</div>
+
+<div class="center-separator"></div>
+
+<p>Pour les jeux</p>
+
+<div class="video-buttons">
+    <button class="video-button" onclick="startVideo('4xDzrJKXOOY')">Chill / Game 🌌</button>
+</div>
+
+<div class="center-separator"></div>
+
+<p>Pour la méditation</p>
+
+<div class="video-buttons">
+    <button class="video-button" onclick="startVideo('xORCbIptqcc')">Music to fall asleep 💤</button>
+    <button class="video-button" onclick="startVideo('-OekvEFm1lo')">Gentle rain sounds 🌧️</button>
+    <button class="video-button" onclick="startVideo('P6Segk8cr-c')">Rainy days ☔</button>
+</div>
+
+<!-- affiche le minuteur sélectionnée -->
+<div id="timerdisplay">Minuteur : --:--</div>
+
+<!-- bouton pour arrêter le minuteur et la vidéo -->
+<button class="video-button" onclick="stopAll()">Arrêter</button>
+
+<!-- affiche la vidéo sélectionnée -->
+<div class="video-container"><iframe id="videoframe" allowfullscreen></iframe></div>
+
+<script>
+
+// Met à jour l'heure et la date toutes les secondes
+
+setInterval(afficherDateEtTime, 1000);
+
+// Fonction pour récupérer et afficher l'heure et la date actuelles.
+
+function afficherDateEtTime() {
+    const maintenant = new Date(); // Crée un objet Date contenant l'heure actuelle
+
+    // Formatage de l'heure avec zéro devant si nécessaire
+    const heures = maintenant.getHours().toString().padStart(2, '0');
+    const minutes = maintenant.getMinutes().toString().padStart(2, '0');
+    const secondes = maintenant.getSeconds().toString().padStart(2, '0');
+
+    // Format de la date : "sam. 31 mai"
+    const optionsDate = { weekday: 'short', day: 'numeric', month: 'long' };
+    const dateLocale = maintenant.toLocaleDateString('fr-FR', optionsDate).toLowerCase();
+
+    // Mise à jour du contenu HTML avec l'heure et la date formatées.
+    document.getElementById("time").innerHTML = `
+        <span id="horloge">${heures}:${minutes}:${secondes}</span>
+        <span id="date">${dateLocale}</span>`;
+}
+
+// Minuteur et gestion des vidéos
+
+let countdown;
+let selectedDuration = 10800000; // Valeur par défaut ("180" min)
+
+function setTimer(duration) {
+    selectedDuration = duration;
+}
+
+function startVideo(videoId) {
+    var videoFrame = document.getElementById('videoframe');
+
+    // Charger la vidéo immédiatement
+    videoFrame.src = 'https://www.youtube.com/embed/' + videoId + '?vq=medium&enablejsapi=1&rel=0&autoplay=1';
+
+    // Démarrer automatiquement le minuteur
+    startTimer(selectedDuration);
+}
+
+// Démarre le minuteur et arrête la vidéo une fois terminé
+
+function startTimer(duration) {
+    clearInterval(countdown); // Réinitialise tout minuteur précédent
+
+    let timeRemaining = duration / 1000;
+    updateTimerDisplay(timeRemaining);
+
+    countdown = setInterval(() => {
+        timeRemaining--;
+        updateTimerDisplay(timeRemaining);
+
+        if (timeRemaining <= 0) {
+            clearInterval(countdown);
+            document.getElementById('videoframe').src = ''; // Arrête la vidéo
+        }
+    }, 1000);
+}
+
+// Met à jour l'affichage du minuteur
+
+function updateTimerDisplay(seconds) {
+    let minutes = Math.floor(seconds / 60);
+    let secondsLeft = seconds % 60;
+    document.getElementById('timerdisplay').innerText = `Minuteur : ${minutes}:${secondsLeft < 10 ? '0' : ''}${secondsLeft}`;
+}
+
+// Arrête le minuteur et la vidéo
+
+function stopAll() {
+    clearInterval(countdown); // Arrêter le minuteur
+    document.getElementById('videoframe').src = ''; // Arrêter la vidéo
+    document.getElementById('timerdisplay').innerText = "Minuteur : --:--"; // Réinitialiser le minuteur
+}
+
+</script>
+
+<footer>
+
+<p>Source du projet github <a href="https://github.com/Devd921/Lofi-Girl-Radio" target="_blank">ici</a></p>
+<h2></h2>
+<p>Site web officiel de <a href="https://lofigirl.com/" target="_blank">Lofi Girl</a> | <a href="https://www.youtube.com/@LofiGirl" target="_blank">Youtube</a></p>
+
+</footer>
+
+</body>
+</html>
