@@ -36,7 +36,7 @@
 
 - Affiche l'heure et la date comme "cadran de montre" pour la version montre (anti-screen burn-in).
 
-preview https://github.com/Devd921/Lofi-Girl-Radio/blob/main/preview/preview.jpeg
+preview (old) https://github.com/Devd921/Lofi-Girl-Radio/blob/main/preview/preview.jpeg
 
 ...
 
@@ -44,7 +44,7 @@ preview https://github.com/Devd921/Lofi-Girl-Radio/blob/main/preview/preview.jpe
 
 [fr] Version du site pour être plus accessible sur une montre.
 
-preview https://github.com/Devd921/Lofi-Girl-Radio/blob/main/preview/preview%20watch.jpeg
+preview (old) https://github.com/Devd921/Lofi-Girl-Radio/blob/main/preview/preview%20watch.jpeg
 
 ...
 
