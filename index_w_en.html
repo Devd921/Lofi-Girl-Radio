@@ -18,7 +18,7 @@ body {
 	background-color: black;
 	font-family: Arial, sans-serif;
 	color: white;
-    font-size: 30px;
+    font-size: 25px;
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -40,6 +40,24 @@ body {
     font-size: 0.5em;
 }
 
+ /* -- container -- */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+    max-width: 400px;
+    margin: auto;
+}
+
+.container-box {
+    border: 5px solid #232323;
+    padding: 15px;
+    border-radius: 15px;
+    min-height: auto;
+}
+
 /* -- bouton minuteur -- */
 
 .duration-buttons {
@@ -51,7 +69,7 @@ body {
 
 .duration-button {
     width: 100%;
-    max-width: 192px;
+    max-width: auto;
 }
 
 /* -- bouton vidéo -- */
@@ -69,12 +87,20 @@ body {
     max-width: 400px;
 }
 
+/* -- bouton liste -- */
+
+.list-button {
+    width: 100%;
+    max-width: 450px;
+    background: #232323;
+}
+
 /* -- bouton -- */
 
-.duration-button, .video-button {
+.duration-button, .video-button, .list-button {
     padding: 20px 30px;
     font-weight: bold;
-    font-size: 30px;
+    font-size: 25px;
     color: white;
     border: none;
     border-radius: 10px;
@@ -82,28 +108,16 @@ body {
     background: #232323;
 }
 
-.duration-button:hover, .video-button:hover {
+.duration-button:hover, .video-button:hover, .list-button:hover {
     transform: scale(1.1);
     opacity: 0.9;
-}
-
-/* -- séparation -- */
-
-.center-separator {
-    background: #232323;
-    width: 100%;
-    max-width: 400px;
-    height: 4px;
-    border-radius: 10px;
-    margin: auto;
-    margin-bottom: 20px;
 }
 
 /* -- minuteur -- */
 
 #timerdisplay {
     font-weight: bold;
-    font-size: 35px;
+    font-size: 30px;
     margin: auto;
     margin-bottom: 15px;
 }
@@ -164,9 +178,11 @@ footer a:hover {
 <!-- affiche l'heure et la date -->
 <div id="time"></div>
 
-<!-- bouton pour sélectionner un minuteur au choix -->
-<h2>TIMERS</h2>
+<div class="container">
 
+<div class="container-box">
+
+<!-- bouton pour sélectionner un minuteur au choix -->
 <div class="duration-buttons">
     <button class="duration-button" onclick="setTimer(1800000)">30 min</button>
     <button class="duration-button" onclick="setTimer(3600000)">60 min</button>
@@ -182,57 +198,62 @@ footer a:hover {
     <button class="duration-button" onclick="setTimer(10800000)">180 min</button>
 </div>
 
-<!-- bouton pour sélectionner une video au choix -->
-<h2>VIDEOS</h2>
+<!-- affiche le minuteur sélectionnée -->
+<div id="timerdisplay">Minuteur : --:--</div>
+
+</div>
+
+<!-- bouton pour afficher la liste des liens -->
+<button id="togglelofidirect" class="list-button">Explore live streams</button>
+<div id="sectionDirect" style="display: none;">
+  
+<div class="container-box">
+
+<!-- bouton pour sélectionner un direct au choix -->
+<p>Pomodoro</p>
+<div class="video-buttons">
+    <button class="video-button" onclick="startVideo('1oDrJba2PSs')">Study with me 📚</button>
+</div>
 
 <p>For Study and Work</p>
-
 <div class="video-buttons">
     <button class="video-button" onclick="startVideo('jfKfPfyJRdk')">Relax / Study 📚</button>
     <button class="video-button" onclick="startVideo('Na0w3Mz46GA')">Relax / Study ⛩️</button>
     <button class="video-button" onclick="startVideo('TtkFsfOP9QI')">Focus / Study 🎹</button>
     <button class="video-button" onclick="startVideo('HuFYqnbVbzY')">Chill / Study 🎷</button>
-    <button class="video-button" onclick="startVideo('IxPANmjPaek')">Scribe Manuscripts 🏰</button>
+    <button class="video-button" onclick="startVideo('E_XmwjgRLz8')">Study / Relax 🎸</button>
+    <button class="video-button" onclick="startVideo('IxPANmjPaek')">Scribe manuscripts 🏰</button>
+    <button class="video-button" onclick="startVideo('xHk3-REBEbE')">Get chills 🧟‍♀️</button>
+    <button class="video-button" onclick="startVideo('D5CnzCepdQ8')">Have an essay due</button>
 </div>
-
-<div class="center-separator"></div>
-
-<div class="video-buttons">
-    <button class="video-button" onclick="startVideo('1oDrJba2PSs')">Study with me 📚</button>
-    <button class="video-button" onclick="startVideo('uFlzUaisbig')">Have an due tomorrow</button>
-</div>
-
-<div class="center-separator"></div>
 
 <p>For Relax and Sleep</p>
-
 <div class="video-buttons">
-    <button class="video-button" onclick="startVideo('28KRPhVzCus')">Sleep / Chill 💤</button>
-    <button class="video-button" onclick="startVideo('S_MOd40zlYU')">Escape / Dream 🌃</button>
-    <button class="video-button" onclick="startVideo('E_XmwjgRLz8')">Study / Relax 🎸</button>
+    <button class="video-button" onclick="startVideo('28KRPhVzCus')">BSleep / Chill 💤</button>
+    <button class="video-button" onclick="startVideo('S_MOd40zlYU')">BeEscape / Dream 🌃</button>
     <button class="video-button" onclick="startVideo('xORCbIptqcc')">Music to fall asleep 💤</button>
 </div>
 
-<div class="center-separator"></div>
-
 <p>For Games</p>
-
 <div class="video-buttons">
     <button class="video-button" onclick="startVideo('4xDzrJKXOOY')">Chill / Game 🌌</button>
 </div>
 
-<div class="center-separator"></div>
-
-<p>For Meditation</p>
-
+<p>Cozy sound</p>
 <div class="video-buttons">
     <button class="video-button" onclick="startVideo('-OekvEFm1lo')">Gentle rain sounds 🌧️</button>
-    <button class="video-button" onclick="startVideo('P6Segk8cr-c')">Rainy days ☔</button>
-    <button class="video-button" onclick="startVideo('SXySxLgCV-8')">Sunny days ☀️</button>
+    <button class="video-button" onclick="startVideo('q_4KI-ChIIs')">Fireplace ambience 🔥</button>
 </div>
 
-<!-- affiche le minuteur sélectionnée -->
-<div id="timerdisplay">Timer : --:--</div>
+<p>Depending on your mood</p>
+<div class="video-buttons">
+    <button class="video-button" onclick="startVideo('P6Segk8cr-c')">Rainy days ☔</button>
+    <button class="video-button" onclick="startVideo('Zq9-4INDsvY')">Relaxing days 🌴</button>
+</div>
+
+</div></div>
+
+</div><!-- div container -->
 
 <!-- bouton pour arrêter le minuteur et la vidéo -->
 <button class="video-button" onclick="stopAll()">Stop</button>
@@ -265,6 +286,17 @@ function afficherDateEtTime() {
         <span id="horloge">${heures}:${minutes}:${secondes}</span>
         <span id="date">${dateLocale}</span>`;
 }
+
+// Liste des directs
+
+const toggleDirectBtn = document.getElementById("togglelofidirect");
+const directSection = document.getElementById("sectionDirect");
+
+toggleDirectBtn.addEventListener("click", () => {
+    const isVisible = directSection.style.display === "block";
+    directSection.style.display = isVisible ? "none" : "block";
+    toggleDirectBtn.textContent = isVisible ? "Explore live streams" : "Hide live streams";
+});
 
 // Minuteur et gestion des vidéos
 

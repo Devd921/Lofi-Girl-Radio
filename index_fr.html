@@ -18,15 +18,10 @@ body {
     background-color: #141321;
     font-family: Arial, sans-serif;
     color: white;
-    font-size: 15px;
+    font-size: 14px;
     text-align: center;
     margin: 0;
     padding: 0;
-}
-
-body.light-mode {
-    background-color: #eeefdf;
-    color: black;
 }
 
 /* -- header -- */
@@ -41,17 +36,22 @@ header {
     height: auto;
 }
 
-/* -- bouton confort visuel -- */
+ /* -- container -- */
 
-.mode-buttons {
+.container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     gap: 15px;
-    margin-bottom: 20px;
+    padding: 15px;
+    max-width: 450px;
+    margin: auto;
 }
 
-.mode-button {
-    background: linear-gradient(45deg, #3FA34D, #1E5631, #A3D9A5);
+.container-box {
+    border: 4px solid #F78F66;
+    padding: 15px;
+    border-radius: 15px;
+    min-height: 150px;
 }
 
 /* -- curseur des cycles -- */
@@ -63,7 +63,7 @@ header {
 
 #cycleslider {
     -webkit-appearance: none;
-    width: 350px;
+    width: 100%;
     height: 6px;
     background: #666;
     border-radius: 3px;
@@ -91,30 +91,24 @@ header {
     transform: scale(1.2);
 }
 
-/* -- bouton pomodoro -- */
+/* -- bouton pomodoro, minuteur -- */
 
-.pomodoro-buttons {
+.pomodoro-buttons, .timer-buttons {
     display: flex;
     justify-content: center;
     gap: 15px;
     margin-bottom: 20px;
 }
 
-.pomodoro-button {
+.pomodoro-button, .timer-button {
     background: linear-gradient(45deg, #6A8DFF, #4C66F3, #304B99);
 }
 
-/* -- bouton minuteur -- */
+/* -- bouton liste -- */
 
-.duration-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.duration-button {
-/* width: 20%; */
+.list-button {
+    width: 100%;
+    max-width: 450px;
     background: linear-gradient(45deg, #6A8DFF, #4C66F3, #304B99);
 }
 
@@ -136,9 +130,9 @@ header {
 
 /* -- bouton -- */
 
-.duration-button, .video-button , .mode-button, .pomodoro-button {
+.timer-button, .video-button , .mode-button, .pomodoro-button, .list-button {
     padding: 12px 18px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
     color: white;
     border: none;
@@ -147,9 +141,21 @@ header {
     transition: 0.3s;
 }
 
-.duration-button:hover, .video-button:hover, .mode-button:hover, .pomodoro-button:hover {
-    transform: scale(1.1);
+.timer-button:hover, .video-button:hover, .mode-button:hover, .pomodoro-button:hover, .list-button:hover {
+    transform: scale(1.05);
     opacity: 0.9;
+}
+
+#section {
+  transition: 0.3s;
+}
+
+/* -- minuteur -- */
+
+#pomodorodisplay, #timerdisplay {
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 20px;
 }
 
 /* -- vidéo -- */
@@ -178,26 +184,7 @@ header {
     margin-bottom: 20px;
 }
 
-/* -- séparation -- */
-
-.center-separator {
-    background: linear-gradient(45deg, #D56BDA, #F78F66, #FFC8A2);
-    width: 100%;
-    max-width: 450px;
-    height: 4px;
-    border-radius: 10px;
-    margin: auto;
-}
-
-/* -- minuteur -- */
-
-#timerdisplay, #pomodorodisplay {
-    font-size: 22px;
-    font-weight: bold;
-    margin-top: 20px;
-}
-
- /* -- footer -- */
+/* -- footer -- */
 
 footer {
     background: linear-gradient(45deg, #D56BDA, #F78F66, #FFC8A2);
@@ -233,16 +220,9 @@ footer a:hover {
 <!-- logo, par défaut en mode sombre -->
 <header><img id="logo" src="assets/images/logo-dark.png" alt="Logo" class="logo"></header>
 
-<div class="center-separator"></div>
+<div class="container">
 
-<!-- mode sombre ou clair, par défaut en mode sombre -->
-<h2>Choisissez du mode de couleur</h2>
-
-<div class="mode-buttons">
-    <button id="togglemode" class="mode-button">🌙 Mode sombre</button>
-</div>
-
-<div class="center-separator"></div>
+<div class="container-box">
 
 <!-- curseur du nombre de cycles à choisir -->
 <h2>Choisissez les cycles du Pomodoro</h2>
@@ -253,6 +233,7 @@ footer a:hover {
 <div class="label-container">
     <label id="cyclelabel" for="cycleslider">Sélectionner le nombre de cycles : 5</label>
 </div>
+
 <input type="range" id="cycleslider" min="3" max="6" value="5" oninput="updateSliderValue(this.value)">
 
 <!-- bouton du Pomodoro -->
@@ -265,7 +246,9 @@ footer a:hover {
 <div id="pomodorodisplay">Cycle : -- | Temps restant : --:--<h2></h2></div>
 <h2></h2>
 
-<div class="center-separator"></div>
+</div>
+
+<div class="container-box">
 
 <!-- bouton pour sélectionner un minuteur au choix -->
 <h2>Choisissez la durée du minuteur</h2>
@@ -273,71 +256,91 @@ footer a:hover {
 <p>Par défaut, le minuteur est de 180 min quand une vidéo est jouée.</p>
 <p>La vidéo est coupée automatiquement, pas le pomodoro.</p>
 
-<div class="duration-buttons">
-    <button class="duration-button" onclick="setTimer(1800000)">30 min</button>
-    <button class="duration-button" onclick="setTimer(3600000)">60 min</button>
-    <button class="duration-button" onclick="setTimer(5400000)">90 min</button>
+<div class="timer-buttons">
+    <button class="timer-button" onclick="setTimer(1800000)">30 min</button>
+    <button class="timer-button" onclick="setTimer(3600000)">60 min</button>
+    <button class="timer-button" onclick="setTimer(5400000)">90 min</button>
 </div>
 
-<div class="duration-buttons">
-    <button class="duration-button" onclick="setTimer(7200000)">120 min</button>
-    <button class="duration-button" onclick="setTimer(9000000)">150 min</button>
-    <button class="duration-button" onclick="setTimer(10800000)">180 min</button>
+<div class="timer-buttons">
+    <button class="timer-button" onclick="setTimer(7200000)">120 min</button>
+    <button class="timer-button" onclick="setTimer(9000000)">150 min</button>
+    <button class="timer-button" onclick="setTimer(10800000)">180 min</button>
 </div>
-
-<div class="center-separator"></div>
-
-<!-- bouton pour sélectionner une video au choix -->
-<h2>📚 Pour étudier et travailler 📚</h2>
-
-<div class="video-buttons">
-    <button class="video-button" onclick="startVideo('jfKfPfyJRdk')">Beats to relax / study 📚 (lofi hip hop)</button>
-    <button class="video-button" onclick="startVideo('Na0w3Mz46GA')">Beats to relax / study ⛩️ (asian lofi)</button>
-    <button class="video-button" onclick="startVideo('TtkFsfOP9QI')">Beats to focus / study 🎹 (peaceful piano)</button>
-    <button class="video-button" onclick="startVideo('HuFYqnbVbzY')">Beats to jazz chill / study 🎷 (jazz lofi)</button>
-    <button class="video-button" onclick="startVideo('IxPANmjPaek')">Beats to scribe manuscripts 🏰 (medieval lofi)</button>
-</div>
-    
-<h2>📚 Pomodoro et POV 📚</h2>
-
-<div class="video-buttons">
-    <button class="video-button" onclick="startVideo('1oDrJba2PSs')">Beats to study with me 📚 Pomodoro</button>
-    <button class="video-button" onclick="startVideo('uFlzUaisbig')">You have an essay due tomorrow</button>
-</div>
-
-<h2>💤 Pour la détente et le sommeil 💤</h2>
-
-<div class="video-buttons">
-    <button class="video-button" onclick="startVideo('28KRPhVzCus')">Beats to sleep / chill 💤 (lofi hip hop)</button>
-    <button class="video-button" onclick="startVideo('S_MOd40zlYU')">Beats to escape / dream 🌃 (dark ambient)</button>
-    <button class="video-button" onclick="startVideo('E_XmwjgRLz8')">Beats to study / relax 🎸 (chill guitar)</button>
-    <button class="video-button" onclick="startVideo('xORCbIptqcc')">Music to fall asleep 💤 (sleep ambient)</button>
-</div>
-
-<h2>🌌 Pour les jeux 🌌</h2>
-
-<div class="video-buttons">
-    <button class="video-button" onclick="startVideo('4xDzrJKXOOY')">Beats to chill / game 🌌 (synthwave)</button>
-</div>
-
-<h2>🎧 Pour la méditation 🎧</h2>
-
-<div class="video-buttons">
-    <button class="video-button" onclick="startVideo('-OekvEFm1lo')">Gentle rain sounds 🌧️</button>
-    <button class="video-button" onclick="startVideo('P6Segk8cr-c')">Beats for rainy days ☔ (sad lofi)</button>
-    <button class="video-button" onclick="startVideo('SXySxLgCV-8')">Beats for sunny days ☀️ (summer lofi)</button>
-</div>
-
-<div class="center-separator"></div>
 
 <!-- affiche le minuteur sélectionnée -->
 <div id="timerdisplay">Minuteur : --:--<h2></h2></div>
 <h2></h2>
 
+</div>
+
+<!-- bouton pour afficher la liste des liens -->
+<button id="togglelofidirect" class="list-button">Explorer les directs de Lofi Girl</button>
+<div id="sectionDirect" style="display: none;">
+  
+<div class="container-box">
+
+<!-- bouton pour sélectionner un direct au choix -->
+<h2>Pomodoro</h2>
+<div class="video-buttons">
+    <button class="video-button" onclick="startVideo('1oDrJba2PSs')">Beats to study with me 📚 Pomodoro</button>
+</div>
+
+<h2>Pour étudier et travailler</h2>
+<div class="video-buttons">
+    <button class="video-button" onclick="startVideo('jfKfPfyJRdk')">Beats to relax / study 📚 (lofi hip hop)</button>
+    <button class="video-button" onclick="startVideo('Na0w3Mz46GA')">Beats to relax / study ⛩️ (asian lofi)</button>
+    <button class="video-button" onclick="startVideo('TtkFsfOP9QI')">Beats to focus / study 🎹 (peaceful piano)</button>
+    <button class="video-button" onclick="startVideo('HuFYqnbVbzY')">Beats to jazz chill / study 🎷 (jazz lofi)</button>
+    <button class="video-button" onclick="startVideo('E_XmwjgRLz8')">Beats to study / relax 🎸 (chill guitar)</button>
+    <button class="video-button" onclick="startVideo('IxPANmjPaek')">Beats to scribe manuscripts 🏰 (medieval lofi)</button>
+    <button class="video-button" onclick="startVideo('xHk3-REBEbE')">Beats to get chills 🧟‍♀️ (halloween lofi)</button>
+    <button class="video-button" onclick="startVideo('D5CnzCepdQ8')">It's Friday and you have an essay due on Monday</button>
+</div>
+
+<h2>Pour la détente et le sommeil</h2>
+<div class="video-buttons">
+    <button class="video-button" onclick="startVideo('28KRPhVzCus')">Beats to sleep / chill 💤 (lofi hip hop)</button>
+    <button class="video-button" onclick="startVideo('S_MOd40zlYU')">Beats to escape / dream 🌃 (dark ambient)</button>
+    <button class="video-button" onclick="startVideo('xORCbIptqcc')">Music to fall asleep 💤 (sleep ambient)</button>
+</div>
+
+<h2>Pour les jeux</h2>
+<div class="video-buttons">
+    <button class="video-button" onclick="startVideo('4xDzrJKXOOY')">Beats to chill / game 🌌 (synthwave)</button>
+</div>
+
+<h2>Son agréable pour se détendre</h2>
+<div class="video-buttons">
+    <button class="video-button" onclick="startVideo('-OekvEFm1lo')">Gentle rain sounds 🌧️</button>
+    <button class="video-button" onclick="startVideo('q_4KI-ChIIs')">Fireplace ambience 🔥</button>
+</div>
+
+<h2>Selon ton humeur</h2>
+<div class="video-buttons">
+    <button class="video-button" onclick="startVideo('P6Segk8cr-c')">Beats for rainy days ☔ (sad lofi)</button>
+    <button class="video-button" onclick="startVideo('Zq9-4INDsvY')">Beats for relaxing days 🌴 (bossa lofi)</button>
+</div>
+
+</div></div>
+
+</div><!-- div container -->
+
 <!-- affiche la vidéo sélectionnée -->
 <div class="video-container"><iframe id="videoframe" allowfullscreen></iframe></div>
 
 <script>
+
+// Liste des directs
+
+const toggleDirectBtn = document.getElementById("togglelofidirect");
+const directSection = document.getElementById("sectionDirect");
+
+toggleDirectBtn.addEventListener("click", () => {
+    const isVisible = directSection.style.display === "block";
+    directSection.style.display = isVisible ? "none" : "block";
+    toggleDirectBtn.textContent = isVisible ? "Explorer les directs de Lofi Girl" : "Cacher les directs de Lofi Girl";
+});
 
 // Les sessions Pomodoro
 
@@ -475,23 +478,6 @@ function playSound(type) {
     }
     audio.play();
 }
-
-// Fonction permettant de basculer entre mode clair et mode sombre
-
-document.getElementById("togglemode").addEventListener("click", function () {
-    document.body.classList.toggle("light-mode");
-
-    var logo = document.getElementById("logo");
-    var button = document.getElementById("togglemode");
-
-    if (document.body.classList.contains("light-mode")) {
-        logo.src = "assets/images/logo-light.png"; // Change le logo pour le mode clair
-        button.textContent = "🌞 Mode clair"; // Texte du bouton mode clair
-    } else {
-        logo.src = "assets/images/logo-dark.png"; // Remet le logo sombre
-        button.textContent = "🌙 Mode sombre"; // Texte du bouton mode sombre
-    }
-});
 
 // Minuteur et gestion des vidéos
     
