@@ -16,7 +16,6 @@
 
 [en] site features:
 
-- A dark or light mode.
 - A choice of 3 to 6 Pomodoro cycles of 25 min and 5 min pause.
 - A unique sound for each cycle, break and end.
 - A timer that selects the duration and cuts the selected video.
@@ -28,7 +27,6 @@
 
 [fr] fonctionnalités du site :
 
-- Un mode sombre ou clair.
 - Un Pomodoro de 3 à 6 cycles au choix de 25 min et 5 min de pause
 - Un son unique à chaque cycle, pause et fin.
 - Un minuteur avec choix de durée et qui coupe la vidéo sélectionnée.
@@ -36,7 +34,7 @@
 
 - Affiche l'heure et la date comme "cadran de montre" pour la version montre (anti-screen burn-in).
 
-preview (old) https://github.com/Devd921/Lofi-Girl-Radio/blob/main/preview/preview.jpeg
+preview https://github.com/Devd921/Lofi-Girl-Radio/blob/main/preview/Preview.jpeg
 
 ...
 
@@ -44,7 +42,7 @@ preview (old) https://github.com/Devd921/Lofi-Girl-Radio/blob/main/preview/previ
 
 [fr] Version du site pour être plus accessible sur une montre.
 
-preview (old) https://github.com/Devd921/Lofi-Girl-Radio/blob/main/preview/preview%20watch.jpeg
+preview https://github.com/Devd921/Lofi-Girl-Radio/blob/main/preview/Preview%20Watch.jpeg
 
 ...
 
